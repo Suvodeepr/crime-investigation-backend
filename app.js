@@ -1,8 +1,14 @@
 import express from "express";
 import connectdb from "./db/connectdb.js";
+
 import firroutes from "./routes/firroutes.js";
+import userroutes from "./routes/userroutes.js";
+import caseroutes from "./routes/caseroutes.js";
+import suspectroutes from "./routes/suspectroutes.js";
+import evidenceroutes from "./routes/evidenceroutes.js";
 
 const app = express();
+
 const port = process.env.PORT || 3000;
 const database_url = process.env.database_url || "mongodb://localhost:27017";
 
@@ -14,6 +20,10 @@ app.use(express.json());
 
 // routes
 app.use("/fir", firroutes);
+app.use("/users", userroutes);
+app.use("/cases", caseroutes);
+app.use("/suspects", suspectroutes);
+app.use("/evidence", evidenceroutes);
 
 // server
 app.listen(port, () => {
