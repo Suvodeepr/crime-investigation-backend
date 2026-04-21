@@ -55,23 +55,23 @@ It makes the system:
 
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
 
 crime_investigation_system/
 │
-├── backend/
+├── backend/ # Node.js + Express API
 │ ├── controllers/
 │ ├── models/
 │ ├── routes/
 │ ├── db/
-│ ├── app.js
+│ └── app.js
 │
-├── frontend/
+├── frontend/ # React (Vite)
 │ ├── src/
 │ ├── public/
 │
-├── README.md
+└── README.md
 
 
 ---
