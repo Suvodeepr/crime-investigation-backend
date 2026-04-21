@@ -1,5 +1,8 @@
 # 🚔 AI Crime Investigation System (MERN + Groq AI)
 
+
+![CRIME_INVASTIGATION_SYSTEM](CRIME_INVASTIGATION_SYSTEM_IMAGE.png)
+
 This is an AI-based Crime Investigation System built using the MERN stack.
 
 The system helps police and authorities to:
