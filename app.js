@@ -6,7 +6,7 @@ import userroutes from "./routes/userroutes.js";
 import caseroutes from "./routes/caseroutes.js";
 import suspectroutes from "./routes/suspectroutes.js";
 import evidenceroutes from "./routes/evidenceroutes.js";
-
+import authroutes from "./routes/authroutes.js";
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -24,6 +24,7 @@ app.use("/users", userroutes);
 app.use("/cases", caseroutes);
 app.use("/suspects", suspectroutes);
 app.use("/evidence", evidenceroutes);
+app.use("/auth", authroutes);
 
 // server
 app.listen(port, () => {
