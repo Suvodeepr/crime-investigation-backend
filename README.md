@@ -54,7 +54,7 @@ It makes the system:
 - AWS (EC2, S3)
 
 ---
-
+```
 ## 📁 Project Structure
 
 
@@ -73,7 +73,7 @@ crime_investigation_system/
 │
 └── README.md
 
-
+```
 ---
 
 # 👥 System Modules
