@@ -13,7 +13,12 @@ function Register() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ name, email, password, role })
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role: role.toLowerCase().trim() // ✅ FIX
+        })
       });
 
       const data = await res.json();
