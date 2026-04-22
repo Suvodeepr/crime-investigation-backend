@@ -1,6 +1,6 @@
 import express from "express";
 import connectdb from "./db/connectdb.js";
-
+import cors from "cors";
 import firroutes from "./routes/firroutes.js";
 import userroutes from "./routes/userroutes.js";
 import caseroutes from "./routes/caseroutes.js";
@@ -14,6 +14,8 @@ const database_url = process.env.database_url || "mongodb://localhost:27017";
 
 // connect database
 connectdb(database_url);
+// cors 
+app.use(cors());  
 
 // middleware
 app.use(express.json());
