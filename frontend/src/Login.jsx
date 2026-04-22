@@ -9,25 +9,36 @@ function Login() {
       const res = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password })
       });
 
       const data = await res.json();
 
-      console.log(data);
-      alert(data.msg);
+      if (!res.ok) {
+        alert(data.msg);
+        return;
+      }
 
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+      // store token + role
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+
+      alert("Login successful");
+
+      // role redirect
+      if (data.role === "admin") {
+        window.location.href = "/admin";
+      } else if (data.role === "police") {
+        window.location.href = "/police";
+      } else {
+        window.location.href = "/user";
       }
 
     } catch (error) {
       console.log(error);
+      alert("Login failed");
     }
   };
 
@@ -52,6 +63,10 @@ function Login() {
       <br /><br />
 
       <button onClick={handleLogin}>Login</button>
+
+      <p onClick={() => window.location.href="/"} style={{cursor:"pointer"}}>
+        New user? Register
+      </p>
     </div>
   );
 }
