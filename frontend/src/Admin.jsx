@@ -1,14 +1,10 @@
+// admin dashboard page
+
 function Admin() {
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Admin Dashboard</h1>
-
-      <button onClick={() => {
-        localStorage.clear();
-        window.location.href = "/login";
-      }}>
-        Logout
-      </button>
+      <h2>Admin Dashboard</h2>
+      <p>Only admin can access this page</p>
     </div>
   );
 }

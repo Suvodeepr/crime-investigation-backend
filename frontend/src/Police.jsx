@@ -1,14 +1,10 @@
+// police dashboard page
+
 function Police() {
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Police Dashboard</h1>
-
-      <button onClick={() => {
-        localStorage.clear();
-        window.location.href = "/login";
-      }}>
-        Logout
-      </button>
+      <h2>Police Dashboard</h2>
+      <p>Only police can access this page</p>
     </div>
   );
 }

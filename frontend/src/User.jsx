@@ -1,14 +1,10 @@
+// user dashboard page
+
 function User() {
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>User Dashboard</h1>
-
-      <button onClick={() => {
-        localStorage.clear();
-        window.location.href = "/login";
-      }}>
-        Logout
-      </button>
+      <h2>User Dashboard</h2>
+      <p>Only user can access this page</p>
     </div>
   );
 }

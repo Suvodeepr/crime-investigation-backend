@@ -1,22 +1,45 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// this file handles routing between pages
 
-import Login from "./Login";
-import Register from "./Register";
-import Admin from "./Admin";
-import Police from "./Police";
-import User from "./User";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// import all pages
+import Register from "./Register.jsx";
+import Login from "./Login.jsx";
+import Admin from "./Admin.jsx";
+import Police from "./Police.jsx";
+import User from "./User.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
+
+        {/* public routes */}
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/police" element={<Police />} />
-        <Route path="/user" element={<User />} />
+
+        {/* protected routes with role check */}
+        <Route path="/admin" element={
+          <ProtectedRoute role="admin">
+            <Admin />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/police" element={
+          <ProtectedRoute role="police">
+            <Police />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/user" element={
+          <ProtectedRoute role="user">
+            <User />
+          </ProtectedRoute>
+        } />
+
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

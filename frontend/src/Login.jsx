@@ -1,43 +1,44 @@
+// this page handles login
+
 import { useState } from "react";
 
 function Login() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
 
   const handleLogin = async () => {
+
     try {
       const res = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, role })
       });
 
       const data = await res.json();
 
-      if (!res.ok) {
-        alert(data.msg);
-        return;
-      }
+      alert(data.msg);
 
-      // store token + role
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role);
+      if (res.ok) {
+        // store token and role
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
 
-      alert("Login successful");
-
-      // role redirect
-      if (data.role === "admin") {
-        window.location.href = "/admin";
-      } else if (data.role === "police") {
-        window.location.href = "/police";
-      } else {
-        window.location.href = "/user";
+        // redirect based on role
+        if (data.role === "admin") {
+          window.location.href = "/admin";
+        } else if (data.role === "police") {
+          window.location.href = "/police";
+        } else {
+          window.location.href = "/user";
+        }
       }
 
     } catch (error) {
-      console.log(error);
       alert("Login failed");
     }
   };
@@ -62,11 +63,15 @@ function Login() {
       />
       <br /><br />
 
-      <button onClick={handleLogin}>Login</button>
+      <select value={role} onChange={(e) => setRole(e.target.value)}>
+        <option value="user">User</option>
+        <option value="police">Police</option>
+        <option value="admin">Admin</option>
+      </select>
 
-      <p onClick={() => window.location.href="/"} style={{cursor:"pointer"}}>
-        New user? Register
-      </p>
+      <br /><br />
+
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
