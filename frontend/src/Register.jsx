@@ -1,10 +1,7 @@
-// this page allows user to register
-
 import { useState } from "react";
 
 function Register() {
-
-  // store input values
+  // state variables for storing input values
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,9 +9,7 @@ function Register() {
 
   // function to handle registration
   const handleRegister = async () => {
-
     try {
-      // send data to backend
       const res = await fetch("http://localhost:3000/auth/register", {
         method: "POST",
         headers: {
@@ -24,66 +19,122 @@ function Register() {
       });
 
       const data = await res.json();
-
       alert(data.msg);
 
-      // if success → go to login
+      // redirect after success
       if (res.ok) {
         window.location.href = "/login";
       }
 
     } catch (error) {
+      console.log(error);
       alert("Registration failed");
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "100px" }}>
-      <h2>Register</h2>
+    <div style={styles.container}>
+      
+      {/* card box */}
+      <div style={styles.card}>
 
-      {/* name input */}
-      <input
-        type="text"
-        placeholder="Enter Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <br /><br />
+        <h2 style={styles.title}>Register</h2>
 
-      {/* email input */}
-      <input
-        type="email"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br /><br />
+        {/* name input */}
+        <input
+          type="text"
+          placeholder="Enter Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={styles.input}
+        />
 
-      {/* password input */}
-      <input
-        type="password"
-        placeholder="Enter Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br /><br />
+        {/* email input */}
+        <input
+          type="email"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={styles.input}
+        />
 
-      {/* role selection */}
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
-        <option value="user">User</option>
-        <option value="police">Police</option>
-        <option value="admin">Admin</option>
-      </select>
+        {/* password input */}
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+        />
 
-      <br /><br />
+        {/* role selection */}
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          style={styles.input}
+        >
+          <option value="user">User</option>
+          <option value="police">Police</option>
+          <option value="admin">Admin</option>
+        </select>
 
-      <button onClick={handleRegister}>Register</button>
+        {/* register button */}
+        <button onClick={handleRegister} style={styles.button}>
+          Register
+        </button>
 
-      <p>
-        Already have account? <a href="/login">Login</a>
-      </p>
+        {/* login link */}
+        <p style={styles.text}>
+          Already have account? <a href="/login">Login</a>
+        </p>
+
+      </div>
     </div>
   );
 }
 
+const styles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#f2f2f2"
+  },
+
+  card: {
+    backgroundColor: "white",
+    padding: "30px",
+    borderRadius: "10px",
+    width: "300px",
+    boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
+    textAlign: "center"
+  },
+
+  title: {
+    marginBottom: "20px"
+  },
+
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "15px",
+    borderRadius: "5px",
+    border: "1px solid #ccc"
+  },
+
+  button: {
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+  },
+
+  text: {
+    marginTop: "15px"
+  }
+};
 export default Register;
