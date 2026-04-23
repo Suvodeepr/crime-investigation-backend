@@ -1,44 +1,41 @@
-// this page handles login
+// This file is used for user login
+// After login, token is saved in browser
 
 import { useState } from "react";
 
 function Login() {
 
+  // state variables to store user input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
 
+  // function to handle login
   const handleLogin = async () => {
 
     try {
+      // send login request to backend
       const res = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, password, role })
+        body: JSON.stringify({ email, password })
       });
 
       const data = await res.json();
 
+      // save token in localStorage
+      localStorage.setItem("token", data.token);
+
       alert(data.msg);
 
+      // redirect after login
       if (res.ok) {
-        // store token and role
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role);
-
-        // redirect based on role
-        if (data.role === "admin") {
-          window.location.href = "/admin";
-        } else if (data.role === "police") {
-          window.location.href = "/police";
-        } else {
-          window.location.href = "/user";
-        }
+        window.location.href = "/";
       }
 
     } catch (error) {
+      console.log(error);
       alert("Login failed");
     }
   };
@@ -50,7 +47,6 @@ function Login() {
       <input
         type="email"
         placeholder="Enter Email"
-        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <br /><br />
@@ -58,17 +54,8 @@ function Login() {
       <input
         type="password"
         placeholder="Enter Password"
-        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <br /><br />
-
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
-        <option value="user">User</option>
-        <option value="police">Police</option>
-        <option value="admin">Admin</option>
-      </select>
-
       <br /><br />
 
       <button onClick={handleLogin}>Login</button>
